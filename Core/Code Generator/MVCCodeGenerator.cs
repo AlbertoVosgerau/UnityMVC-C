@@ -73,7 +73,7 @@ namespace UnityMVC.CodeGenerator
         
         public static void CreateSolver(string nameSpace, string name, bool removeComments, string inheritsFrom = null)
         {
-            GenerateScript(nameSpace,name, GetTemplate(ScriptType.Solver, removeComments), GetPath("Solvers"), ScriptType.Solver, removeComments, virtualToOverride: inheritsFrom != null);
+            GenerateScript(nameSpace,name, GetTemplate(ScriptType.Solver), GetPath("Solvers"), ScriptType.Solver, removeComments, virtualToOverride: inheritsFrom != null, isPartial:false);
         }
 
         public static void UpdatePartial(string nameSpace, ScriptType type, string name, string baseType, string path, string view)
@@ -265,6 +265,7 @@ namespace UnityMVC.CodeGenerator
         private static string GetTemplate(ScriptType type, bool isPartial = false)
         {
             string templateName = isPartial? $"{type.ToString()}TemplatePartial" : $"{type.ToString()}Template";
+            Debug.Log($"Looking for {templateName}");
             string[] assets = AssetDatabase.FindAssets(templateName);
             string path = AssetDatabase.GUIDToAssetPath(assets[0]);
             string str = File.ReadAllText(path);
@@ -319,6 +320,7 @@ namespace UnityMVC.CodeGenerator
             
             Debug.Log($"Creating module at {absolutePath}");
             string scriptsFolder = $"{absolutePath}/Scripts";
+            string testsFolder = $"{absolutePath}/Scripts/Tests";
             string prefabsFolder = $"{absolutePath}/Prefabs";
             string scenesFolder = $"{absolutePath}/Scenes";
 
@@ -326,6 +328,7 @@ namespace UnityMVC.CodeGenerator
             Directory.CreateDirectory(prefabsFolder);
             Directory.CreateDirectory(scriptsFolder);
             Directory.CreateDirectory(scenesFolder);
+            Directory.CreateDirectory(testsFolder);
             
             string assemblyDefinitionTemplate = GetAssemblyDefinitionTemplate();
             string GUID = GetMVCAssemblyDefinitionGUID();
