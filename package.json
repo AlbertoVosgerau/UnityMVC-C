@@ -1,7 +1,7 @@
 {
   "name": "com.albertovosgerau.unitymvcc",
   "displayName": "Unity MVC+C",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "unity": "2020.3",
   "description": "Unity MVC+C Code Generator",
   "keywords": [
