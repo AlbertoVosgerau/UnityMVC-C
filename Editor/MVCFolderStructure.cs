@@ -9,12 +9,14 @@ namespace UnityMVC.Editor
         public static string ProjectFolder => $"{Application.dataPath}/_Project";
         public static string ThirdPartyFolder => $"{Application.dataPath}/ThirdParty";
         public static string ScriptsFolder => $"{ProjectFolder}/Scripts";
+        public static string TestsFolder => $"{ProjectFolder}/Scripts/Tests";
         public static string ScenesFolder => $"{ProjectFolder}/Scenes";
         public static string PrefabsFolder => $"{ProjectFolder}/Prefabs";
         public static string CommonFolder => $"{ProjectFolder}/Common";
         public static string CommonsModules => $"{ProjectFolder}/Modules";
         public static string CommonsPrefabsFolder => $"{ProjectFolder}/Common/Prefabs";
         public static string CommonsScriptsFolder => $"{ProjectFolder}/Common/Scripts";
+        public static string CommonsTestsFolder => $"{ProjectFolder}/Common/Scripts/Tests";
         public static string ApplicationFolder => $"{ProjectFolder}/Application/Scripts/Application";
         public static string ModulesFolder => $"{ProjectFolder}/Modules";
     
