@@ -1,6 +1,6 @@
 {
-  "name": "com.albertovosgerau.unitymvc",
-  "displayName": "Unity MVC",
+  "name": "com.albertovosgerau.unitymvcc",
+  "displayName": "Unity MVC+C",
   "version": "0.0.2",
   "unity": "2020.3",
   "description": "Unity MVC+C Code Generator",
