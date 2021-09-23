@@ -13,8 +13,8 @@ namespace UnityMVC.Editor
         public static string PrefabsFolder => $"{ProjectFolder}/Prefabs";
         public static string CommonFolder => $"{ProjectFolder}/Common";
         public static string CommonsModules => $"{ProjectFolder}/Modules";
-        public static string CommonsPrefabsFolder => $"{CommonFolder}Prefabs";
-        public static string CommonsScriptsFolder => $"{CommonFolder}Scripts";
+        public static string CommonsPrefabsFolder => $"{ProjectFolder}/Common/Prefabs";
+        public static string CommonsScriptsFolder => $"{ProjectFolder}/Common/Scripts";
         public static string ApplicationFolder => $"{ProjectFolder}/Application/Scripts/Application";
         public static string ModulesFolder => $"{ProjectFolder}/Modules";
     
