@@ -6,6 +6,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEditor.Graphs;
 using UnityEngine;
+using UnityMVC.CodeGenerator;
 using UnityMVC.Component;
 using UnityMVC.Model;
 
