@@ -699,6 +699,7 @@ namespace UnityMVC.Editor
         private void OnChangedValue()
         {
             UnityMVCResources.SaveAllData();
+            _modulePath = UnityMVCResources.Data.modulesRelativePath;
         }
 
         private void OnCreatedFile()
