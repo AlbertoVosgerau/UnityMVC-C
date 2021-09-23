@@ -320,6 +320,7 @@ namespace UnityMVC.CodeGenerator
             
             Debug.Log($"Creating module at {absolutePath}");
             string scriptsFolder = $"{absolutePath}/Scripts";
+            string testsFolder = $"{absolutePath}/Scripts/Tests";
             string prefabsFolder = $"{absolutePath}/Prefabs";
             string scenesFolder = $"{absolutePath}/Scenes";
 
@@ -327,6 +328,7 @@ namespace UnityMVC.CodeGenerator
             Directory.CreateDirectory(prefabsFolder);
             Directory.CreateDirectory(scriptsFolder);
             Directory.CreateDirectory(scenesFolder);
+            Directory.CreateDirectory(testsFolder);
             
             string assemblyDefinitionTemplate = GetAssemblyDefinitionTemplate();
             string GUID = GetMVCAssemblyDefinitionGUID();

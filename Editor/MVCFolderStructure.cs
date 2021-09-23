@@ -55,6 +55,11 @@ namespace UnityMVC.Editor
             {
                 Directory.CreateDirectory(ScriptsFolder);
             }
+            
+            if(!Directory.Exists(TestsFolder))
+            {
+                Directory.CreateDirectory(TestsFolder);
+            }
         
             if(!Directory.Exists(ScenesFolder))
             {
@@ -84,6 +89,11 @@ namespace UnityMVC.Editor
             if(!Directory.Exists(CommonsScriptsFolder))
             {
                 Directory.CreateDirectory(CommonsScriptsFolder);
+            }
+            
+            if(!Directory.Exists(CommonsTestsFolder))
+            {
+                Directory.CreateDirectory(CommonsTestsFolder);
             }
 
             if(!Directory.Exists(ThirdPartyFolder))
