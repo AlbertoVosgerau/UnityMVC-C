@@ -16,7 +16,7 @@ namespace UnityMVC.Editor
     public class MVCCreateWindows : EditorWindow
     {
         private int _mainTabIntex = 0;
-        private string[] _mainTabs = new[] {"Module Wizard", "MVC+C Code Generator", "Inspector"};
+        private string[] _mainTabs = new[] {"Module Wizard", "Code Generator", "Inspector", "Settings", "Help"};
 
         private string _newModuleName;
         private string _newNamespace;
@@ -30,7 +30,7 @@ namespace UnityMVC.Editor
         private float _btnWidth = 220;
         private Vector2 _scrollPosition = new Vector2(0,0);
         private int _currentMVCTab = 0;
-        private string[] _MVCtabs = new[] {"Controllers/Views", "MVCComponents", "Models", "UnityComponent"};
+        private string[] _MVCtabs = new[] {"Controllers/Views", "MVC Components", "Models", "UnityComponent", "Other"};
         private int _currentPath = 0;
         private List<string> _dataPaths;
         
@@ -63,6 +63,8 @@ namespace UnityMVC.Editor
         private List<string> _componentViewTypes = new List<string>();
         private int _componentViewIndex;
         private bool _hasApplication = false;
+
+        private bool _generateAssemblyDefinition = true;
 
         [MenuItem("Unity MVC+C/Open Creation Window", priority = 0)]
         private static void Init()
@@ -121,15 +123,18 @@ namespace UnityMVC.Editor
             MainTabs();
         }
 
-        private static void Header()
+        private static void Header(string str)
         {
-            GUILayout.Label("Create MVC+C Script", EditorStyles.boldLabel);
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.LabelField(str, EditorStyles.boldLabel, GUILayout.Width(440));
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
         }
         
         private void CreateApplicationArea()
         {
             GUILayout.Space(10);
-            
             
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
@@ -186,7 +191,85 @@ namespace UnityMVC.Editor
                 MVCCodeGenerator.CreateApplication(_projectName);
                 OnCreatedFile();
             }
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+            
+            GUILayout.Space(15);
+            
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            GUILayout.Label($"The project {_projectName} will be created with the following folder structure", GUILayout.Width(_btnWidth * 2));
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+            GUILayout.Space(15);
+            
+            GUILayout.BeginVertical();
 
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            
+            FoldersCreationArea();
+            
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            GUILayout.EndVertical();
+        }
+
+        private void FoldersCreationArea()
+        {
+            GUILayout.BeginVertical();
+
+            Checkbox(true, "_Project", 0);
+            Checkbox(ref MVCFolderStructure.create3dModelsFolder,"3D Models", 1);
+            Checkbox(true,"Application", 1);
+            Checkbox(ref MVCFolderStructure.createAudioFolder,"Audio", 1);
+            Checkbox(true,"Scripts", 2);
+            Checkbox(true,"Common", 1);
+            Checkbox(true,"Prefabs", 2);
+            Checkbox(true,"Scripts", 2);
+            Checkbox(true,"Tests", 3);
+            Checkbox(true,"EditMode", 4);
+            Checkbox(true,"PlayMode", 4);
+            Checkbox(true,"Modules", 1);
+            Checkbox(true,"Prefabs", 1);
+            Checkbox(true,"Scenes", 1);
+            Checkbox(true,"Scripts", 1);
+            Checkbox(true,"Tests", 2);
+            Checkbox(true,"EditMode", 3);
+            Checkbox(true,"PlayMode", 3);
+            Checkbox(ref MVCFolderStructure.createResourcesFolder,"Resources", 1);
+            Checkbox(ref MVCFolderStructure.createSpritesFolder,"Sprites", 1);
+            Checkbox(ref MVCFolderStructure.createTexturesFolder,"Textures", 1);
+            Checkbox(ref MVCFolderStructure.createUIFolder,"UI", 1);
+            
+            Checkbox(ref MVCFolderStructure.createThirdPartyFolder,"ThirdParty", 0);
+
+            GUILayout.EndVertical();
+        }
+
+        private void Checkbox(ref bool value, string str, int spacing)
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            GUILayout.Space(spacing * 20);
+
+            value = GUILayout.Toggle(value, str, GUILayout.Width(_btnWidth *2));
+            
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+        }
+        
+        private void Checkbox(bool defaultValue, string str, int spacing)
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            GUILayout.Space(spacing * 20);
+            GUIStyle style = new GUIStyle("Toggle");
+            style.fontStyle = FontStyle.Bold;
+
+            GUILayout.Toggle(defaultValue, str, style, GUILayout.Width(_btnWidth *2));
+            
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
         }
@@ -215,7 +298,18 @@ namespace UnityMVC.Editor
                 case 2:
                     InspectorArea();
                     break;
+                case 3:
+                    SettingsArea();
+                    break;
+                case 4:
+                    HelpArea();
+                    break;
             }
+        }
+
+        private void HelpArea()
+        {
+            GUILayout.Label($"Will contain Help and documentation");
         }
 
         private void MVCTabs()
@@ -226,7 +320,7 @@ namespace UnityMVC.Editor
             GUIStyle style = new GUIStyle(GUI.skin.button);;
             style.fontSize = 2;
 
-            _currentMVCTab = GUILayout.Toolbar(_currentMVCTab, _MVCtabs, style, GUILayout.Width(_btnWidth *2) );
+            _currentMVCTab = GUILayout.Toolbar(_currentMVCTab, _MVCtabs, style );
             
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
@@ -249,7 +343,15 @@ namespace UnityMVC.Editor
                 case 3:
                     UnityComponentArea();
                     break;
+                case 4:
+                    MiscArea();
+                    break;
             }
+        }
+
+        private void MiscArea()
+        {
+            GUILayout.Label($"Will contain Interfaces, Enums and ScriptableObjects");
         }
 
         private void NoModuleFoundArea()
@@ -367,7 +469,7 @@ namespace UnityMVC.Editor
 
         private void MVCAreaCodeGeneratorArea()
         {
-            Header();
+            Header("Create MVC+C Script");
             GUILayout.Space(20);
             
             CreateAssetAtArea();
@@ -392,6 +494,20 @@ namespace UnityMVC.Editor
             }
             
             GUILayout.EndVertical();
+        }
+
+        private void SettingsArea()
+        {
+            Header("MVC+C Settings");
+            GUILayout.Space(5);
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            GUILayout.Label("All settings on this session are placeholder for now. Nothing is really working.");
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
+            GUILayout.Space(20);
+            Checkbox(ref _generateAssemblyDefinition, "Generate Assembly Definitions", 0);
+            Checkbox(ref UnityMVCResources.Data.removeComments, "Remove comments from generated code", 0);
         }
 
         private void CreateAssetAtArea()
